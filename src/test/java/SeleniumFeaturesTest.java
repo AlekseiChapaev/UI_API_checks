@@ -1,3 +1,4 @@
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class SeleniumFeaturesTest extends BaseTest {
 
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void clickTest() {
         String headerText = new HomePage(getDriver())
@@ -17,6 +19,7 @@ public class SeleniumFeaturesTest extends BaseTest {
         Assert.assertEquals(headerText, "XHTML Might Be The Future");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void labelTextTest() {
         final String labelName = "Label_1";
@@ -31,6 +34,7 @@ public class SeleniumFeaturesTest extends BaseTest {
         Assert.assertTrue(listLabelNames.contains(labelName));
     }
 
+    @Severity(SeverityLevel.MINOR)
     @Test
     public void labelColorTest() {
 
