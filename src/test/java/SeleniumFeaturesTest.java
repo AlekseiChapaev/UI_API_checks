@@ -12,7 +12,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Test
     public void clickTest() {
         String headerText = new HomePage(getDriver())
-                .goToClickTest()
+                .goToClickTestPage()
                 .clickClickLink()
                 .getHeaderText();
 
@@ -25,7 +25,7 @@ public class SeleniumFeaturesTest extends BaseTest {
         final String labelName = "Label_1";
 
         List<String> listLabelNames = new HomePage(getDriver())
-                .goToLabelTest()
+                .goToLabelTestPage()
                 .fillLabelName(labelName)
                 .selectRedColor()
                 .clickAddLabelButton()
@@ -39,12 +39,34 @@ public class SeleniumFeaturesTest extends BaseTest {
     public void labelColorTest() {
 
         String labelColor = new HomePage(getDriver())
-                .goToLabelTest()
+                .goToLabelTestPage()
                 .fillLabelName("name")
                 .selectRedColor()
                 .clickAddLabelButton()
                 .getLabelColor();
 
         Assert.assertEquals(labelColor, "background-color: red;");
+    }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void alertWithTextTest() {
+        String alertText = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .clickAlertWithText()
+                .getText();
+
+        Assert.assertEquals(alertText, "cheese");
+    }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void alertWithoutTextTest() {
+        String alertText = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .clickAlertWithoutText()
+                .getText();
+
+        Assert.assertEquals(alertText, "");
     }
 }

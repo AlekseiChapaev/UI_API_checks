@@ -10,15 +10,21 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public ClickPage goToClickTest() {
+    public ClickPage goToClickTestPage() {
         getWait().until(ExpectedConditions.presenceOfElementLocated(By.linkText("ClickTest_testClicksASurroundingStrongTag.html"))).click();
 
         return new ClickPage(getDriver());
     }
 
-    public LabelPage goToLabelTest() {
+    public LabelPage goToLabelTestPage() {
         getWait().until(ExpectedConditions.presenceOfElementLocated(By.linkText("ajaxy_page.html"))).click();
 
         return new LabelPage(getDriver());
+    }
+
+    public AlertPage goToAlertTestPage() {
+        getWait().until(ExpectedConditions.presenceOfElementLocated(By.linkText("alerts.html"))).click();
+
+        return new AlertPage(getDriver());
     }
 }
