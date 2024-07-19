@@ -8,7 +8,7 @@ public class SeleniumFeaturesTest extends BaseTest {
 
     @Test
     public void clickTest() {
-        getDriver().findElement(By.linkText("ClickTest_testClicksASurroundingStrongTag.html")).click();
+        getWait().until(ExpectedConditions.presenceOfElementLocated(By.linkText("ClickTest_testClicksASurroundingStrongTag.html"))).click();
         getDriver().findElement(By.linkText("Click")).click();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "XHTML Might Be The Future");
@@ -18,7 +18,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     public void labelTest() {
         final String text1 = "Label_1";
 
-        getDriver().findElement(By.linkText("ajaxy_page.html")).click();
+        getWait().until(ExpectedConditions.presenceOfElementLocated(By.linkText("ajaxy_page.html"))).click();
         getDriver().findElement(By.xpath("//input[@name = 'typer']")).sendKeys(text1);
         getDriver().findElement(By.id("red")).click();
         getDriver().findElement(By.xpath("//input[@name = 'submit']")).click();
@@ -27,6 +27,4 @@ public class SeleniumFeaturesTest extends BaseTest {
         Assert.assertEquals(label_1.getText(), text1);
         Assert.assertEquals(label_1.getAttribute("style"), "background-color: red;");
     }
-
-
 }
