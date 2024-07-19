@@ -69,4 +69,26 @@ public class SeleniumFeaturesTest extends BaseTest {
 
         Assert.assertEquals(alertText, "");
     }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    public void alertWithNewPageTest() {
+        String pageText = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .clickAlertAppearsOnTheSamePage()
+                .getPageText();
+
+        Assert.assertEquals(pageText, "Page with onload event handler");
+    }
+
+    @Severity(SeverityLevel.TRIVIAL)
+    @Test
+    public void selectDropdownAndGetAlertTextTest() {
+        String pageText = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .setSelect()
+                .getText();
+
+        Assert.assertEquals(pageText, "changed");
+    }
 }
