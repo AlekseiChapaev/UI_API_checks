@@ -1,17 +1,15 @@
+package pages.base;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-
-import java.time.Duration;
 
 public abstract class BaseTest {
 
     private WebDriver driver;
-    private WebDriverWait wait;
-    private ChromeOptions options = new ChromeOptions();
+    private final ChromeOptions options = new ChromeOptions();
 
     public WebDriver getDriver() {
         return driver;
@@ -27,14 +25,6 @@ public abstract class BaseTest {
 
     @AfterMethod
     public void afterMethod() {
-        wait = null;
         driver.quit();
-    }
-
-    public WebDriverWait getWait() {
-        if(wait == null) {
-            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        }
-        return wait;
     }
 }
