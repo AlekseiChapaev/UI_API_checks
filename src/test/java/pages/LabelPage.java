@@ -2,8 +2,11 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.base.BasePage;
+
+import java.util.List;
 
 public class LabelPage extends BasePage {
     public LabelPage(WebDriver driver) {
@@ -32,7 +35,11 @@ public class LabelPage extends BasePage {
         return getWait().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'label']"))).getAttribute("style");
     }
 
-    public String getLabelName() {
-        return getWait().until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class = 'label']"))).getText();
+    public List<String> getSetOfLabelName() {
+
+        return getWait().until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class = 'label']")))
+                .stream()
+                .map(WebElement::getText)
+                .toList();
     }
 }

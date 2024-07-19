@@ -3,6 +3,8 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.base.BaseTest;
 
+import java.util.List;
+
 public class SeleniumFeaturesTest extends BaseTest {
 
     @Test
@@ -19,14 +21,14 @@ public class SeleniumFeaturesTest extends BaseTest {
     public void labelTextTest() {
         final String labelName = "Label_1";
 
-        String labelText = new HomePage(getDriver())
+        List<String> listLabelNames = new HomePage(getDriver())
                 .goToLabelTest()
                 .fillLabelName(labelName)
                 .selectRedColor()
                 .clickAddLabelButton()
-                .getLabelName();
+                .getSetOfLabelName();
 
-        Assert.assertEquals(labelText, labelName);
+        Assert.assertTrue(listLabelNames.contains(labelName));
     }
 
     @Test
