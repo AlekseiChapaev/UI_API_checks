@@ -1,17 +1,21 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import pages.base.BasePage;
 
 public class ClickPage extends BasePage {
+
+    @FindBy(linkText = "Click")
+    private WebElement clickLink;
 
     public ClickPage(WebDriver driver) {
         super(driver);
     }
 
     public ClickResultPage clickClickLink() {
-        getDriver().findElement(By.linkText("Click")).click();
+        clickLink.click();
         return new ClickResultPage(getDriver());
     }
 }

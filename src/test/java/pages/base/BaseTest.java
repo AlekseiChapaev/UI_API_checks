@@ -18,6 +18,7 @@ public abstract class BaseTest {
     @BeforeMethod
     public void beforeMethod() {
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--headless");
 
         driver = new ChromeDriver(options);
         getDriver().get("https://www.selenium.dev/selenium/web/");

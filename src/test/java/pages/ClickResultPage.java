@@ -1,16 +1,20 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import pages.base.BasePage;
 
 public class ClickResultPage extends BasePage {
+
+    @FindBy(xpath = "//h1")
+    private WebElement header;
 
     public ClickResultPage(WebDriver driver) {
         super(driver);
     }
 
     public String getHeaderText() {
-        return getDriver().findElement(By.xpath("//h1")).getText();
+        return header.getText();
     }
 }

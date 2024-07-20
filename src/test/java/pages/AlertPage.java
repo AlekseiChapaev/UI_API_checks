@@ -1,8 +1,9 @@
 package pages;
 
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import pages.base.BasePage;
 
@@ -11,28 +12,42 @@ public class AlertPage extends BasePage {
         super(driver);
     }
 
-    Select select = new Select(getDriver().findElement(By.id("select")));
+    @FindBy(id = "alert")
+    private WebElement simpleAlert;
+
+    @FindBy(id = "empty-alert")
+    private WebElement emptyAlert;
+
+    @FindBy(id = "open-page-with-onload-alert")
+    private WebElement alertAndReloadPage;
+
+    @FindBy(id = "select")
+    private WebElement SelectDropdown;
+
+
+    Select select;
 
     public Alert clickAlertWithText() {
-        getDriver().findElement(By.id("alert")).click();
-
+        simpleAlert.click();
         return getDriver().switchTo().alert();
     }
 
     public Alert clickAlertWithoutText() {
-        getDriver().findElement(By.id("empty-alert")).click();
-
+        emptyAlert.click();
         return getDriver().switchTo().alert();
     }
 
     public AlertOnNewPagePage clickAlertAppearsOnTheSamePage() {
-        getDriver().findElement(By.id("open-page-with-onload-alert")).click();
+        alertAndReloadPage.click();
         getDriver().switchTo().alert().accept();
 
         return new AlertOnNewPagePage(getDriver());
     }
 
     public Alert setSelect() {
+        if(select == null) {
+            select = new Select(SelectDropdown);
+        }
         select.selectByIndex(2);
 
         return getDriver().switchTo().alert();
