@@ -14,6 +14,8 @@ public class HomePage extends BasePage {
     private WebElement labelTestLink;
     @FindBy(linkText = "alerts.html")
     private WebElement alertTestLink;
+    @FindBy(linkText = "bidi/release_action.html")
+    private WebElement keyReporterLink;
 
 
     public HomePage(WebDriver driver) {
@@ -36,5 +38,10 @@ public class HomePage extends BasePage {
         getWait().until(ExpectedConditions.elementToBeClickable(alertTestLink)).click();
 
         return new AlertPage(getDriver());
+    }
+
+    public KeyReporterPage goToKeyReporterPage() {
+        getWait().until(ExpectedConditions.elementToBeClickable(keyReporterLink)).click();
+        return new KeyReporterPage(getDriver());
     }
 }

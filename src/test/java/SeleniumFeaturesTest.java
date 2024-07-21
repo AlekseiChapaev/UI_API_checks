@@ -91,4 +91,17 @@ public class SeleniumFeaturesTest extends BaseTest {
 
         Assert.assertEquals(pageText, "changed");
     }
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Test
+
+    public void keyReporterTest() {
+        final char symbol = 'q';
+        int pressCode =  new HomePage(getDriver())
+                .goToKeyReporterPage()
+                .inputSymbol(symbol)
+                .getKeyPressCode();
+
+        Assert.assertEquals(pressCode, symbol);
+    }
 }
