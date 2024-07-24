@@ -94,14 +94,25 @@ public class SeleniumFeaturesTest extends BaseTest {
 
     @Severity(SeverityLevel.CRITICAL)
     @Test
-
     public void keyReporterTest() {
-        final char symbol = 'q';
+        final char symbol = 'B';
         int pressCode =  new HomePage(getDriver())
                 .goToKeyReporterPage()
                 .inputSymbol(symbol)
                 .getKeyPressCode();
 
         Assert.assertEquals(pressCode, symbol);
+    }
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Test
+    public void typeStuffTest() {
+        final String testWord = "123";
+        int count = new HomePage(getDriver())
+                .goToTypingTestLink()
+                .fillSymbol(testWord)
+                .getCountNotesInBodyResultLine();
+
+        Assert.assertEquals(count, testWord.length());
     }
 }

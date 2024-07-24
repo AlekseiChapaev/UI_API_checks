@@ -17,6 +17,9 @@ public class HomePage extends BasePage {
     @FindBy(linkText = "bidi/release_action.html")
     private WebElement keyReporterLink;
 
+    @FindBy(linkText = "bodyTypingTest.html")
+    private WebElement typingTestLink;
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -44,4 +47,11 @@ public class HomePage extends BasePage {
         getWait().until(ExpectedConditions.elementToBeClickable(keyReporterLink)).click();
         return new KeyReporterPage(getDriver());
     }
+
+    public TypingTestPage goToTypingTestLink() {
+        getWait().until(ExpectedConditions.elementToBeClickable(typingTestLink)).click();
+
+        return new TypingTestPage(getDriver());
+    }
+
 }
