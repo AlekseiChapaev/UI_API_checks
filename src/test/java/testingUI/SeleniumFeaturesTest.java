@@ -1,8 +1,10 @@
+package testingUI;
+
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
-import pages.base.BaseTest;
+import testingUI.pages.HomePage;
+import testingUI.pages.base.BaseTest;
 
 import java.util.List;
 

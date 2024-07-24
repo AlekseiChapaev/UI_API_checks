@@ -1,10 +1,10 @@
-package pages;
+package testingUI.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages.base.BasePage;
+import testingUI.pages.base.BasePage;
 
 public class HomePage extends BasePage {
 
@@ -53,5 +53,4 @@ public class HomePage extends BasePage {
 
         return new TypingTestPage(getDriver());
     }
-
 }

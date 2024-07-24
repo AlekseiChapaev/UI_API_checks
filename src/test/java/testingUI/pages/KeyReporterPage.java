@@ -1,9 +1,9 @@
-package pages;
+package testingUI.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.base.BasePage;
+import testingUI.pages.base.BasePage;
 
 import java.util.List;
 

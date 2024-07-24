@@ -1,11 +1,11 @@
-package pages;
+package testingUI.pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import pages.base.BasePage;
+import testingUI.pages.base.BasePage;
 
 public class AlertPage extends BasePage {
     public AlertPage(WebDriver driver) {
