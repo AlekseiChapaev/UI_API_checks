@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 public class APIWithJavaSimpleTest {
     /*
@@ -20,7 +19,7 @@ public class APIWithJavaSimpleTest {
    Byt we're still using external library - in this example - Apache HttpClient
     */
     @Test
-    public void httpTest() throws IOException, ParseException {
+    public void httpSimpleTest() throws IOException {
 
         // we use try-finally structure. It gives us an opportunity to automatically use interface closable after performing this block of code
         // after block of code within the try. We close the object that was created in the row bellow (httpClient)
