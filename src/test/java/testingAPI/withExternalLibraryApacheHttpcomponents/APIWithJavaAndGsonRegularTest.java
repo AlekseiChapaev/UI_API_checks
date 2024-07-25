@@ -1,4 +1,4 @@
-package testingAPI;
+package testingAPI.withExternalLibraryApacheHttpcomponents;
 
 import com.google.common.net.HttpHeaders;
 import com.google.gson.Gson;
