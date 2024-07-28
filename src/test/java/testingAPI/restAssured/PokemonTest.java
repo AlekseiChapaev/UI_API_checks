@@ -4,11 +4,11 @@ import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
-public class RestAssuredTest {
+public class PokemonTest {
 
     @Test
     public void pokemonWithRestAssuredTest() {
-        RestAssured.when()
+        RestAssured.when()                                 // after when() we have to specify a type of request
                 .get("https://pokeapi.co/api/v2/pokemon") // here we send a request on necessary end point
                 .then()                                     //after this key word we start out checks
                 .statusCode(200)                         //here we check that status code = 200
