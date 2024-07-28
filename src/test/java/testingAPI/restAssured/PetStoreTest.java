@@ -1,13 +1,13 @@
 package testingAPI.restAssured;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
-import org.testng.Assert;
+import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
@@ -50,6 +50,8 @@ public class PetStoreTest {
                 .extract()
                 .response()
                 .asString();
+
+        System.out.println(listPetsAsString.substring(0, 200));
     }
 
     @Test
@@ -70,5 +72,50 @@ public class PetStoreTest {
         потому что значения в JSON могут быть различных типов,
         таких как строки, числа, логические значения, вложенные объекты и массивы
          */
+    }
+
+    /*
+    This class was created to describe a pet which will be input to store
+     */
+    static class Pet {
+        @JsonProperty       //  используем эти аннотации чтобы указать что нужно сериализовать
+        private long id;
+        @JsonProperty
+        private PetCategory category;
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String status;
+
+        public Pet(long id, PetCategory category, String name, String status) {
+            this.id = id;
+            this.category = category;
+            this.name = name;
+            this.status = status;
+        }
+    }
+
+    static class PetCategory { // this class to describe category of pet
+        @JsonProperty
+        long id;
+        @JsonProperty
+        String name;
+
+        public PetCategory(long id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+    }
+
+    @Test
+    public void positiveAddNewPetToStoreTest() {
+        RestAssured.given()
+                .baseUri(END_POINT)
+                .contentType(ContentType.JSON)
+                .body(new Pet(77777, new PetCategory(1, "Dragons"), "Toothless", "Imaginary"))
+                .when()
+                .post()
+                .then()
+                .statusCode(200);
     }
 }
