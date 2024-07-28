@@ -16,6 +16,7 @@ public class PetStoreTest {
 
     private static final String END_POINT = "https://petstore.swagger.io/v2/pet/";
     private static final String PET_ID = "77777";
+    private static final int POSITIVE_STATUS_CODE_200 = 200;
 
     @Test
     public void positiveCheckPetNotExistTest() {
@@ -46,12 +47,10 @@ public class PetStoreTest {
                 .when()
                 .get("findByStatus/")
                 .then()
-                .statusCode(200)
+                .statusCode(POSITIVE_STATUS_CODE_200)
                 .extract()
                 .response()
                 .asString();
-
-        System.out.println(listPetsAsString.substring(0, 200));
     }
 
     @Test
@@ -63,7 +62,7 @@ public class PetStoreTest {
                         .when()
                         .get("findByStatus/")   // https://petstore.swagger.io/v2/pet/findByStatus?status=available
                         .then()
-                        .statusCode(200)
+                        .statusCode(POSITIVE_STATUS_CODE_200)
                         .extract()
                         .response()
                         .as(new TypeRef<>() {}); //указываем что тело ответа должно быть десериализовано в список Map
@@ -79,9 +78,9 @@ public class PetStoreTest {
      */
     static class Pet {
         @JsonProperty       //  используем эти аннотации чтобы указать что нужно сериализовать
-        private long id;
+        private final long id;
         @JsonProperty
-        private PetCategory category;
+        private final PetCategory category;
         @JsonProperty
         private String name;
         @JsonProperty
@@ -116,6 +115,6 @@ public class PetStoreTest {
                 .when()
                 .post()
                 .then()
-                .statusCode(200);
+                .statusCode(POSITIVE_STATUS_CODE_200);
     }
 }
