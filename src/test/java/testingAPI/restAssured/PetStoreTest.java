@@ -1,8 +1,10 @@
 package testingAPI.restAssured;
 
 import io.restassured.RestAssured;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PetStoreTest {
@@ -18,5 +20,14 @@ public class PetStoreTest {
                 .statusCode(404)
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Pet not found"));
+    }
+
+    @Test
+    public void negativeCheckRequestWithoutPetIdTest() {
+        RestAssured.when()
+                .get(END_POINT.concat(""))
+                .then()
+                .statusCode(405)
+                .statusLine(containsString("405 Method Not Allowed")); //here we check a notification into Response StatusCode row
     }
 }
