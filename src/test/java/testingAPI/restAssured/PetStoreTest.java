@@ -117,4 +117,18 @@ public class PetStoreTest {
                 .then()
                 .statusCode(POSITIVE_STATUS_CODE_200);
     }
+
+    @Test
+    public void positiveUpdateAllInfoPetTest()  {
+        RestAssured.given()
+                .baseUri(END_POINT)
+                .contentType(ContentType.JSON)
+                .body(new Pet(77777, new PetCategory(1, "dragons"), "Firebreath", "actual"))
+                .when()
+                .put()
+                .then()
+                .statusCode(POSITIVE_STATUS_CODE_200)
+                .body("name", equalTo("Firebreath"))
+                .body("status", equalTo("actual"));
+    }
 }
