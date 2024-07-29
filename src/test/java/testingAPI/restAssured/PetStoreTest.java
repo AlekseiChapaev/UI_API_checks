@@ -145,4 +145,15 @@ public class PetStoreTest {
                 .statusCode(200)
                 .body("message", equalTo(PET_ID));  //we check on message = PET_ID because of setting our end point.
     }
+
+    @Test(dependsOnMethods = "updatePartInfoAboutPetTest")
+    public void deletePetTest() {
+        RestAssured.given()
+                .baseUri(END_POINT)
+                .when()
+                .delete(PET_ID)
+                .then()
+                .statusCode(POSITIVE_STATUS_CODE_200)
+                .body("message", equalTo(PET_ID));
+    }
 }
