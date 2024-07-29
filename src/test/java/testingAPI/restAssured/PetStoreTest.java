@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -14,13 +13,12 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PetStoreTest {
-
     private static final String END_POINT = "https://petstore.swagger.io/v2/pet/";
     private static final String PET_ID = "77777";
     private static final int POSITIVE_STATUS_CODE_200 = 200;
 
     @Test
-    public void positiveCheckPetNotExistTest() {
+    public void checkPetNotExistTest() {
         RestAssured.given()
                 .baseUri(END_POINT)
                 .when()
@@ -41,7 +39,7 @@ public class PetStoreTest {
     }
 
     @Test
-    public void positiveGetListPetByStatusAsStringTest() {
+    public void getListPetByStatusAsStringTest() {
         String listPetsAsString = RestAssured.given()
                 .baseUri(END_POINT)
                 .queryParam("status", "available")
@@ -55,7 +53,7 @@ public class PetStoreTest {
     }
 
     @Test
-    public void positiveGetListPetByStatusAsObjectsTest() {
+    public void getListPetByStatusAsObjectsTest() {
         List<Map<String, Object>> listPetsAsObjects = //мы ждем список, где каждый элемент Map это питомец, с ключами и значениями.
                 RestAssured.given()
                         .baseUri(END_POINT)
@@ -108,8 +106,8 @@ public class PetStoreTest {
         }
     }
 
-    @Test
-    public void positiveAddNewPetToStoreTest() {
+    @Test(dependsOnMethods = "checkPetNotExistTest")
+    public void addNewPetToStoreTest() {
         RestAssured.given()
                 .baseUri(END_POINT)
                 .contentType(ContentType.JSON)
@@ -120,7 +118,7 @@ public class PetStoreTest {
                 .statusCode(POSITIVE_STATUS_CODE_200);
     }
 
-    @Test
+    @Test(dependsOnMethods = "addNewPetToStoreTest")
     public void updateAllInfoAboutPetTest() {
         RestAssured.given()
                 .baseUri(END_POINT)
@@ -134,7 +132,7 @@ public class PetStoreTest {
                 .body("status", equalTo("actual"));
     }
 
-    @Test
+    @Test(dependsOnMethods = "updateAllInfoAboutPetTest")
     public void updatePartInfoAboutPetTest() {
         RestAssured.given()
                 .baseUri(END_POINT)
