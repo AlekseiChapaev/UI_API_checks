@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -65,7 +66,8 @@ public class PetStoreTest {
                         .statusCode(POSITIVE_STATUS_CODE_200)
                         .extract()
                         .response()
-                        .as(new TypeRef<>() {}); //указываем что тело ответа должно быть десериализовано в список Map
+                        .as(new TypeRef<>() {
+                        }); //указываем что тело ответа должно быть десериализовано в список Map
         /*
         Используем List<Map<String, Object>> вместо List<Map<String, String>>
         потому что значения в JSON могут быть различных типов,
@@ -119,7 +121,7 @@ public class PetStoreTest {
     }
 
     @Test
-    public void positiveUpdateAllInfoPetTest()  {
+    public void updateAllInfoAboutPetTest() {
         RestAssured.given()
                 .baseUri(END_POINT)
                 .contentType(ContentType.JSON)
@@ -130,5 +132,19 @@ public class PetStoreTest {
                 .statusCode(POSITIVE_STATUS_CODE_200)
                 .body("name", equalTo("Firebreath"))
                 .body("status", equalTo("actual"));
+    }
+
+    @Test
+    public void updatePartInfoAboutPetTest() {
+        RestAssured.given()
+                .baseUri(END_POINT)
+                .header("Content-Type", "application/x-www-form-urlencoded") //here we poin in that way we will update info about a pet
+                .formParam("name", "Sharik")    // here we point that param we're going to change
+                .formParam("status", "SOLD")    // here we point that param we're going to change
+                .when()
+                .post(PET_ID)
+                .then()
+                .statusCode(200)
+                .body("message", equalTo(PET_ID));  //we check on message = PET_ID because of setting our end point.
     }
 }
