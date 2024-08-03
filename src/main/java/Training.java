@@ -7,16 +7,21 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+import java.time.*;
+
 
 
 public class Training {
-    public static String highAndLow(String numbers) {
-        var res = Arrays.stream(numbers.split(" ")).mapToInt(Integer::parseInt).summaryStatistics();
-
-        return res.getMax() + " " + res.getMin();
+    public static boolean isLeapYear(int year) {
+        return Year.isLeap(year);
+        /*
+        Years divisible by 4 are leap years,
+but years divisible by 100 are not leap years,
+but years divisible by 400 are leap years.
+         */
     }
 
     public static void main(String[] args) {
-            System.out.println(highAndLow("8 3 -5 42 -1 0 0 -9 4 7 4 -4"));
+            System.out.println(isLeapYear(2100));
     }
 }
