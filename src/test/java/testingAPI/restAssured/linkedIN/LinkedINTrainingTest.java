@@ -65,7 +65,7 @@ public class LinkedINTrainingTest {
         String endpoint = "http://localhost:8888/api_testing/product/delete.php";
         String body = """
                 {
-                "id": 19
+                "id": 21
                 }
                 """;
 
