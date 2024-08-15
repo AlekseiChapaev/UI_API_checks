@@ -1,4 +1,4 @@
-package testingAPI.restAssured;
+package testingAPI.restAssured.linkedIN;
 
 import org.testng.annotations.Test;
 
@@ -58,5 +58,19 @@ public class LinkedINTrainingTest {
         var request = given().body(body).when().put(endpoint).then();
 
         request.log().body();
+    }
+
+    @Test
+    public void deleteProduct() {
+        String endpoint = "http://localhost:8888/api_testing/product/delete.php";
+        String body = """
+                {
+                "id": 19
+                }
+                """;
+
+        var response = given().body(body).when().delete(endpoint).then();
+
+        response.log().body();
     }
 }
