@@ -9,7 +9,7 @@ public class TrainingCRUDTest {
     public void create() {
         String endpoint = "http://localhost:8888/api_testing/product/create.php";
         Product product = new Product(
-               "Sweatband",
+                "Sweatband",
                 "New red color sweatband",
                 5,
                 3
@@ -54,6 +54,36 @@ public class TrainingCRUDTest {
 
         var response = given().body(body).when().delete(endpoint).then();
 
+        response.log().body();
+    }
+
+    @Test
+    public void create2() {
+        String endpoint = "http://localhost:8888/api_testing/product/create.php";
+        String info = """
+                       {
+                       "name": "Sweatband",
+                       "description": "New red color sweatband",
+                       "price": 5,
+                       "category_id": 3
+                       }
+                """;
+
+        var response = given().body(info).when().post(endpoint).then();
+        response.log().body();
+    }
+
+    @Test
+    public void update2() {
+        String endpoint = "http://localhost:8888/api_testing/product/update.php";
+        String info = """
+                       {
+                       "id": 28,
+                       "price": 10
+                       }
+                """;
+
+        var response = given().body(info).when().put(endpoint).then();
         response.log().body();
     }
 }
