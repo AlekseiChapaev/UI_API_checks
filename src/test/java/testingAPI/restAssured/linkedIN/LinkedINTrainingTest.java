@@ -60,7 +60,7 @@ public class LinkedINTrainingTest {
     }
 
     @Test
-    public void getSeveralProducts() {
+    public void checkResponseHeaderAndBodyWithSeveralProducts() {
         String endpoint = "http://localhost:8888/api_testing/product/read.php";
         given()
         .when()
@@ -70,6 +70,7 @@ public class LinkedINTrainingTest {
                 .body()
                 .assertThat()
                 .statusCode(200)
+                .header("Content-Type", equalTo("application/json; charset=UTF-8")) // here we check that responses content-type matches expected
                 .body("records.size()", greaterThan(0)) // here we check that we got not empty array. The check depends on the requirement
                 .body("records.size()", equalTo(23)) // here we check that we get an array with name "records" and it contains from 23 objects
                 .body("records.id", everyItem(notNullValue())) // here we check that every record in "records" has an ID. What there are no empty values in our DB
