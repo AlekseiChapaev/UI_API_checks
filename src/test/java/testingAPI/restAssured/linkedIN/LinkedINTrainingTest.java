@@ -3,7 +3,7 @@ package testingAPI.restAssured.linkedIN;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 
 public class LinkedINTrainingTest {
 
@@ -57,6 +57,29 @@ public class LinkedINTrainingTest {
                 .body("price", equalTo("299.00"))
                 .body("category_id", equalTo(2))
                 .body("category_name", equalTo("Active Wear - Women"));
+    }
+
+    @Test
+    public void getSeveralProducts() {
+        String endpoint = "http://localhost:8888/api_testing/product/read.php";
+        given()
+        .when()
+                .get(endpoint)
+        .then()
+                .log()
+                .body()
+                .assertThat()
+                .statusCode(200)
+                .body("records.size()", greaterThan(0)) // here we check that we got not empty array. The check depends on the requirement
+                .body("records.size()", equalTo(23)) // here we check that we get an array with name "records" and it contains from 23 objects
+                .body("records.id", everyItem(notNullValue())) // here we check that every record in "records" has an ID. What there are no empty values in our DB
+                .body("records.name", everyItem(notNullValue()))
+                .body("records.description", everyItem(notNullValue()))
+                .body("records.price", everyItem(notNullValue()))
+                .body("records.category_id", everyItem(notNullValue()))
+                .body("records.category_name", everyItem(notNullValue()))
+                .body("records.id[0]", equalTo(28)) //here we check that the first object in "records" array has id = 28
+                .body("records.name[22]", equalTo("Bamboo Thermal Ski Coat")); //here we check that the last object in "records" array has specified name
     }
 
     @Test
