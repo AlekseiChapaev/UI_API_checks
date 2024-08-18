@@ -24,10 +24,23 @@ public class LinkedINTrainingTest {
                 then();
 
         response.log().body();
-  }
+    }
 
-  @Test
-   public void createProduct() {
+    @Test
+    public void getProductWithStatusCodeVerification() {
+        String endpoint = "http://localhost:8888/api_testing/product/read_one.php";
+
+        given().
+                queryParam("id", 2).
+        when().
+                get(endpoint).
+        then()
+                .assertThat()
+                .statusCode(200);
+    }
+
+    @Test
+    public void createProduct() {
         String endpoint = "http://localhost:8888/api_testing/product/create.php";
         String body = """
                 {
@@ -40,7 +53,7 @@ public class LinkedINTrainingTest {
         var response = given().body(body).when().post(endpoint).then();
 
         response.log().body();
-  }
+    }
 
     @Test
     public void updateProduct() {
