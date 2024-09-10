@@ -12,16 +12,31 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.time.*;
 
+import static io.opentelemetry.api.internal.TemporaryBuffers.chars;
 
 
 public class Training {
 
-    public static String relation(int a, int b) {
-        return (a+b) % 2 != 0 ? "some variable is odd" : "maybe a and b are even";
-    }
     public static void main(String[] args) {
-        int[][] array = {{1, 2, 3, 4, 5}, {6, 7, 8, 9}, {-1, -2, -3, -4}, {-5, -6}};
+        String[][] array = {{"Привет", "всем", "кто"}, {"изучает", "язык", "программирования"}, {"java"}};
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                if(!array[i][j].contains("е")) {
+                    count++;
+                }
+            }
+        }
+        System.out.println(count);
 
-        System.out.println(Arrays.stream(array).flatMapToInt(min -> Arrays.stream(min)).min().getAsInt());
+
+        System.out.println(Arrays.stream(array)
+                .flatMap(i -> Arrays.stream(i))
+                .filter(i -> !i.contains("е"))
+                .count());
+
     }
+
+
+
 }
