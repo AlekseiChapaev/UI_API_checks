@@ -17,26 +17,15 @@ import static io.opentelemetry.api.internal.TemporaryBuffers.chars;
 
 public class Training {
 
-    public static void main(String[] args) {
-        String[][] array = {{"Привет", "всем", "кто"}, {"изучает", "язык", "программирования"}, {"java"}};
-        int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if(!array[i][j].contains("е")) {
-                    count++;
-                }
-            }
-        }
-        System.out.println(count);
-
-
-        System.out.println(Arrays.stream(array)
-                .flatMap(i -> Arrays.stream(i))
-                .filter(i -> !i.contains("е"))
-                .count());
-
+    public static String sort(String[] ss) {
+        return Arrays.stream(ss)
+                .reduce((s1, s2) -> s1.length() < s2.length() ? s1 : s2)
+                .get();
     }
-
+    
+    public static void main(String[] args) {
+        System.out.println(sort(new String[]{"hello", "world", "here", "wasce", "are"}));
+    }
 
 
 }
