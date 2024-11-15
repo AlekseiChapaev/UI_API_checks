@@ -29,6 +29,5 @@ public class ActionsTest extends BaseTest {
 
         System.out.println(slider.getAttribute("value"));
         Assert.assertEquals(slider.getAttribute("value"), "3");
-
     }
 }
