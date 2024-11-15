@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import testingUI.pages.base.BaseTest;
 
-public class DimensionTest extends BaseTest {
+public class Actions_MoveByDimensionTest extends BaseTest {
 
     @Test
     public void testThroughDimension() {
