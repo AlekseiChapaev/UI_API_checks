@@ -154,8 +154,17 @@ public class SeleniumFeaturesTest extends BaseTest {
         alert.accept();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "Heading");
+    }
 
+    @Test
+    public void notRedirectionToAnotherPageAfterClickDismissOnAlertWithConfirmTest() {
+        Alert alert = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .switchToAlertWithConfirm();
 
+        alert.dismiss();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "Testing Alerts and Stuff");
     }
 
     @Severity(SeverityLevel.CRITICAL)
