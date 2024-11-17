@@ -1,4 +1,4 @@
-package testingUI.pages;
+package testingUI;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

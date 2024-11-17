@@ -1,9 +1,7 @@
 package testingUI;
 
 import io.qameta.allure.*;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testingUI.pages.HomePage;
@@ -134,7 +132,7 @@ public class SeleniumFeaturesTest extends BaseTest {
                 .goToAlertTestPage()
                 .switchToAlertWithPrompt();
 
-        alert.sendKeys(enteredText);
+        alert.sendKeys(enteredText); //this notification isn't showed into input field
         alert.accept();
 
         Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'text']/p")).getText(), enteredText);
@@ -184,5 +182,23 @@ public class SeleniumFeaturesTest extends BaseTest {
                 .getCountNotesInBodyResultLine();
 
         Assert.assertEquals(count, testWord.length());
+    }
+
+    @Test
+    public void framesTest() {
+        getDriver().get("https://www.selenium.dev/selenium/web/iframes.html");
+        // in try-catch we're checking that there is no WebElement with id:"email".
+        try {
+            getDriver().findElement(By.id("email"));
+            fail("Unexpected behavior: email field does't exist on that page. It is into a frame");
+        } catch(NoSuchElementException e) {
+            //test pass
+        }
+        // here we find iframe and switch to it
+        final WebElement currentFrame = getDriver().findElement(By.id("iframe1"));
+        getDriver().switchTo().frame(currentFrame);
+
+        final WebElement emailField = getDriver().findElement(By.id("email"));
+        Assert.assertEquals(emailField.getTagName(), "input");
     }
 }

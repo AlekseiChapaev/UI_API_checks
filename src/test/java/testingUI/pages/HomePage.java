@@ -16,9 +16,10 @@ public class HomePage extends BasePage {
     private WebElement alertTestLink;
     @FindBy(linkText = "bidi/release_action.html")
     private WebElement keyReporterLink;
-
     @FindBy(linkText = "bodyTypingTest.html")
     private WebElement typingTestLink;
+    @FindBy(linkText = "iframes.html")
+    private WebElement iframePageLink;
 
 
     public HomePage(WebDriver driver) {
@@ -52,5 +53,10 @@ public class HomePage extends BasePage {
         getWait().until(ExpectedConditions.elementToBeClickable(typingTestLink)).click();
 
         return new TypingTestPage(getDriver());
+    }
+
+    public FramesPage goToFramePage() {
+        getWait().until(ExpectedConditions.elementToBeClickable(iframePageLink)).click();
+        return new FramesPage(getDriver());
     }
 }
