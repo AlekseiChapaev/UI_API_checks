@@ -2,12 +2,15 @@ package testingUI;
 
 import io.qameta.allure.*;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testingUI.pages.HomePage;
 import testingUI.pages.base.BaseTest;
 
 import java.util.List;
+
+import static org.testng.Assert.fail;
 
 public class SeleniumFeaturesTest extends BaseTest {
 
@@ -100,6 +103,45 @@ public class SeleniumFeaturesTest extends BaseTest {
                 .getText();
 
         Assert.assertEquals(pageText, "changed");
+    }
+
+    @Test
+    public void alertDisappearedAfterClickOkButtonOnAlertTest() {
+        Alert alert = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .switchToAlertWithText();
+
+        alert.accept();
+        try {
+            getDriver().switchTo().alert();     // we tried to switch to alert. We expect that the issue (NoAlertPresentException) appears here.
+                                        // if it happens Java doesn't perform row with fail and go to the catch block
+            fail("There is no expected NoAlertPresentException was thrown");  // if our program could switch to alert on previous row
+                                        // it means that our test doesn't work (we expected the issue and didn't get it).
+                                        // we command Java to fail our test and give a notice that "There is no expected NoAlertPresentException was thrown"
+        } catch (NoAlertPresentException e) {
+            //pass                              // here we don't perform anything because it was expected app behavior
+                                                // So it means that app works as expected and test pass
+        }
+    }
+
+    @Test
+    public void alertDisappearedAfterClickDismissButtonOnAlertTest() {
+        Alert alert = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .switchToAlertWithPrompt();
+
+        alert.dismiss();
+
+        try {
+            getDriver().switchTo().alert();     // we tried to switch to alert. We expect that the issue (NoAlertPresentException) appears here.
+                                        // if it happens Java doesn't perform row with fail and go to the catch block
+            fail("There is no expected NoAlertPresentException was thrown");  // if our program could switch to alert on previous row
+                                        // it means that our test doesn't work (we expected the issue and didn't get it).
+                                        // we command Java to fail our test and give a notice that "There is no expected NoAlertPresentException was thrown"
+        } catch (NoAlertPresentException e) {
+            //pass                              // here we don't perform anything because it was expected app behavior
+                                                // So it means that app works as expected and test pass
+        }
     }
 
     @Severity(SeverityLevel.CRITICAL)

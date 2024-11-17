@@ -28,6 +28,9 @@ public class AlertPage extends BasePage {
     @FindBy(id = "slow-alert")
     private WebElement slowAlert;
 
+    @FindBy(id = "prompt")
+    private WebElement alertWithPrompt;
+
 
     Select select;
 
@@ -61,6 +64,11 @@ public class AlertPage extends BasePage {
         slowAlert.click();
         getWait().until(ExpectedConditions.alertIsPresent());
 
+        return getDriver().switchTo().alert();
+    }
+
+    public Alert switchToAlertWithPrompt() {
+        alertWithPrompt.click();
         return getDriver().switchTo().alert();
     }
 }
