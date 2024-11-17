@@ -72,6 +72,8 @@ public class AlertPage extends BasePage {
 
     public Alert switchToAlertWithPrompt() {
         alertWithPrompt.click();
+        getWait().until(ExpectedConditions.alertIsPresent());
+
         return getDriver().switchTo().alert();
     }
 

@@ -18,7 +18,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Test
     public void clickTest() {
-        String headerText = new HomePage(getDriver())
+        final String headerText = new HomePage(getDriver())
                 .goToClickTestPage()
                 .clickClickLink()
                 .getHeaderText();
@@ -31,7 +31,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     public void labelTextTest() {
         final String labelName = "Label_1";
 
-        List<String> listLabelNames = new HomePage(getDriver())
+        final List<String> listLabelNames = new HomePage(getDriver())
                 .goToLabelTestPage()
                 .fillLabelName(labelName)
                 .selectRedColor()
@@ -45,7 +45,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Test
     public void labelColorTest() {
 
-        String labelColor = new HomePage(getDriver())
+        final String labelColor = new HomePage(getDriver())
                 .goToLabelTestPage()
                 .fillLabelName("name")
                 .selectRedColor()
@@ -78,7 +78,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void alertWithNewPageTest() {
-        String pageText = new HomePage(getDriver())
+        final String pageText = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .clickAlertAppearsOnTheSamePage()
                 .getPageText();
@@ -88,7 +88,7 @@ public class SeleniumFeaturesTest extends BaseTest {
 
     @Test
     public void switchToSlowAlertTest() {
-        Alert alert = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .switchToSlowAlert();
 
@@ -98,7 +98,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Severity(SeverityLevel.TRIVIAL)
     @Test
     public void selectDropdownAndGetAlertTextTest() {
-        String pageText = new HomePage(getDriver())
+        final String pageText = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .setSelect()
                 .getText();
@@ -108,11 +108,12 @@ public class SeleniumFeaturesTest extends BaseTest {
 
     @Test
     public void alertDisappearedAfterClickOkButtonOnAlertTest() {
-        Alert alert = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .switchToAlertWithText();
 
         alert.accept();
+
         try {
             getDriver().switchTo().alert();     // we tried to switch to alert. We expect that the issue (NoAlertPresentException) appears here.
                                         // if it happens Java doesn't perform row with fail and go to the catch block
@@ -126,28 +127,22 @@ public class SeleniumFeaturesTest extends BaseTest {
     }
 
     @Test
-    public void alertDisappearedAfterClickDismissButtonOnAlertTest() {
-        Alert alert = new HomePage(getDriver())
+    public void alertWitMessageTest() {
+        final String enteredText = "Here is entered text";
+
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .switchToAlertWithPrompt();
 
-        alert.dismiss();
+        alert.sendKeys(enteredText);
+        alert.accept();
 
-        try {
-            getDriver().switchTo().alert();     // we tried to switch to alert. We expect that the issue (NoAlertPresentException) appears here.
-                                        // if it happens Java doesn't perform row with fail and go to the catch block
-            fail("There is no expected NoAlertPresentException was thrown");  // if our program could switch to alert on previous row
-                                        // it means that our test doesn't work (we expected the issue and didn't get it).
-                                        // we command Java to fail our test and give a notice that "There is no expected NoAlertPresentException was thrown"
-        } catch (NoAlertPresentException e) {
-            //pass                              // here we don't perform anything because it was expected app behavior
-                                                // So it means that app works as expected and test pass
-        }
+        Assert.assertEquals(getDriver().findElement(By.xpath("//div[@id = 'text']/p")).getText(), enteredText);
     }
 
     @Test
     public void redirectionToAnotherPageAfterClickOkOnAlertWithConfirmTest() {
-        Alert alert = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .switchToAlertWithConfirm();
 
@@ -158,7 +153,7 @@ public class SeleniumFeaturesTest extends BaseTest {
 
     @Test
     public void notRedirectionToAnotherPageAfterClickDismissOnAlertWithConfirmTest() {
-        Alert alert = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
                 .switchToAlertWithConfirm();
 
@@ -171,7 +166,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Test
     public void keyReporterTest() {
         final char symbol = 'B';
-        int pressCode =  new HomePage(getDriver())
+        final int pressCode =  new HomePage(getDriver())
                 .goToKeyReporterPage()
                 .inputSymbol(symbol)
                 .getKeyPressCode();
@@ -183,7 +178,7 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Test
     public void typeStuffTest() {
         final String testWord = "123";
-        int count = new HomePage(getDriver())
+        final int count = new HomePage(getDriver())
                 .goToTypingTestLink()
                 .fillSymbol(testWord)
                 .getCountNotesInBodyResultLine();
