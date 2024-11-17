@@ -201,4 +201,20 @@ public class SeleniumFeaturesTest extends BaseTest {
         final WebElement emailField = getDriver().findElement(By.id("email"));
         Assert.assertEquals(emailField.getTagName(), "input");
     }
+
+    @Test
+    public void switchBetweenFramesTest() {
+        getDriver().get("https://www.selenium.dev/selenium/web/slow_loading_iframes.html");
+
+        getDriver().switchTo().frame("noSrc");  // here we switch to frame with id = "noSrc"
+        getDriver().switchTo().defaultContent(); // here we return to initial (external) page with two frames.
+                                                // Because we can't switch from one frame to another
+                                                // - one frame doesn't exist within the other
+
+        getDriver().switchTo().frame(0);    // here we switch to frame which has 0-index (it is on the first place on our DOM)
+                                                //we use index because the second frame doesn't have name
+        Assert.assertEquals(getDriver().findElement(By.id("announcement-banner")).getTagName(), "section");
+            // in Assert we check what we are in the first frame by looking for specific webElement.
+
+    }
 }
