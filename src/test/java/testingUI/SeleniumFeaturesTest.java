@@ -1,6 +1,7 @@
 package testingUI;
 
 import io.qameta.allure.*;
+import org.openqa.selenium.Alert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testingUI.pages.HomePage;
@@ -53,23 +54,21 @@ public class SeleniumFeaturesTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void alertWithTextTest() {
-        String alertText = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
-                .clickAlertWithText()
-                .getText();
+                .switchToAlertWithText();
 
-        Assert.assertEquals(alertText, "cheese");
+        Assert.assertEquals(alert.getText(), "cheese");
     }
 
     @Severity(SeverityLevel.NORMAL)
     @Test
     public void alertWithoutTextTest() {
-        String alertText = new HomePage(getDriver())
+        final Alert alert = new HomePage(getDriver())
                 .goToAlertTestPage()
-                .clickAlertWithoutText()
-                .getText();
+                .switchToAlertWithoutText();
 
-        Assert.assertEquals(alertText, "");
+        Assert.assertEquals(alert.getText(), "");
     }
 
     @Severity(SeverityLevel.NORMAL)
@@ -81,6 +80,15 @@ public class SeleniumFeaturesTest extends BaseTest {
                 .getPageText();
 
         Assert.assertEquals(pageText, "Page with onload event handler");
+    }
+
+    @Test
+    public void switchToSlowAlertTest() {
+        Alert alert = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .switchToSlowAlert();
+
+        Assert.assertEquals(alert.getText(), "Slow");
     }
 
     @Severity(SeverityLevel.TRIVIAL)
