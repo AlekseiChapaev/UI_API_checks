@@ -31,6 +31,9 @@ public class AlertPage extends BasePage {
     @FindBy(id = "prompt")
     private WebElement alertWithPrompt;
 
+    @FindBy(id = "confirm")
+    private WebElement alertWithConfirm;
+
 
     Select select;
 
@@ -69,6 +72,11 @@ public class AlertPage extends BasePage {
 
     public Alert switchToAlertWithPrompt() {
         alertWithPrompt.click();
+        return getDriver().switchTo().alert();
+    }
+
+    public Alert switchToAlertWithConfirm () {
+        alertWithConfirm.click();
         return getDriver().switchTo().alert();
     }
 }

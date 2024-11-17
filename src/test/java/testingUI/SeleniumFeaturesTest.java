@@ -2,6 +2,7 @@ package testingUI;
 
 import io.qameta.allure.*;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -142,6 +143,19 @@ public class SeleniumFeaturesTest extends BaseTest {
             //pass                              // here we don't perform anything because it was expected app behavior
                                                 // So it means that app works as expected and test pass
         }
+    }
+
+    @Test
+    public void redirectionToAnotherPageAfterClickOkOnAlertWithConfirmTest() {
+        Alert alert = new HomePage(getDriver())
+                .goToAlertTestPage()
+                .switchToAlertWithConfirm();
+
+        alert.accept();
+
+        Assert.assertEquals(getDriver().findElement(By.xpath("//h1")).getText(), "Heading");
+
+
     }
 
     @Severity(SeverityLevel.CRITICAL)
